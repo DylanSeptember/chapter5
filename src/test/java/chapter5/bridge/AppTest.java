@@ -50,48 +50,6 @@ public class AppTest
         Assert.assertNotNull(pc);
     }
 
-   /* @Test
-    public void testDistanceAdapter()
-    {
-        DistanceAdapter distanceAdapter = new DistanceAdapter();
 
-        Assert.assertNotNull(distanceAdapter);
-    }
-
-    @Test
-    public void testKMToMiles()
-    {
-        DistanceAdapter distanceAdapter = new DistanceAdapter();
-
-        distanceAdapter.setDistanceMiles(90);
-        Assert.assertEquals(144, distanceAdapter.getDistanceKM(), 0);
-    }
-
-    @Test
-    public void testMilesToKM()
-    {
-        DistanceAdapter distanceAdapter = new DistanceAdapter();
-
-        distanceAdapter.setDistanceKM(144);;
-        Assert.assertEquals(90, distanceAdapter.getDistanceMiles(), 0);
-    }
-
-    @Test
-    public void testMiles()
-    {
-        DistanceAdapter distanceAdapter = new DistanceAdapter();
-
-        distanceAdapter.setDistanceKM(144);;
-        Assert.assertEquals(144, distanceAdapter.getDistanceKM(), 0);
-    }
-
-    @Test
-    public void testKM()
-    {
-        DistanceAdapter distanceAdapter = new DistanceAdapter();
-
-        distanceAdapter.setDistanceMiles(144);;
-        Assert.assertEquals(144, distanceAdapter.getDistanceMiles(), 0);
-    }*/
 
 }
