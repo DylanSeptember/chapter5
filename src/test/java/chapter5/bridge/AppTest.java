@@ -13,41 +13,34 @@ public class AppTest
 
 {
 
-    Computer computer;
+    DBInfo dbInfo;
+
 
     @Before
     public void testBean() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        computer = (Computer) ctx.getBean("int1");
+        dbInfo = (PersonInfo) ctx.getBean("int1");
 
     }
 
-    Processor processor;
 
-    @Before
-    public void testBean2() throws Exception {
-
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        processor = (Processor) ctx.getBean("int2");
-
-    }
 
     @Test
-    public void testProcesser()
+    public void testPersonInfo()
     {
-        i7 i = new i7();
+        PersonInfo personInfo = new PersonInfo();
 
-        Assert.assertNotNull(i);
+        Assert.assertNotNull(personInfo);
     }
 
 
     @Test
-    public void testPC()
+    public void testProxy()
     {
-        PC pc = new PC(new i7());
+        Proxy proxy = new Proxy();
 
-        Assert.assertNotNull(pc);
+        Assert.assertNotNull(proxy);
     }
 
 

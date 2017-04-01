@@ -8,52 +8,43 @@ public class App
 {
     public static void main( String[] args )
     {
-        Computer computer = new PC(new i7());
-        computer.boot();
 
+
+        PersonInfo personInfo = new PersonInfo();
+        personInfo.print();
+        Proxy proxy = new Proxy();
+        proxy.print();
     }
 }
 
-abstract class Computer
+interface DBInfo
 {
-    Processor processor;
+    public void print();
+}
 
-    String colour;
-
-    public abstract void boot();
-
-    public void setProcessor(Processor processor)
+class PersonInfo implements DBInfo
+{
+    public void print()
     {
-        this.processor = processor;
+        System.out.println("this is someones info");
     }
 }
 
-class PC extends Computer
+class Proxy
 {
-    public PC(Processor processor)
+    PersonInfo personInfo;
+
+    public Proxy()
     {
-        this.colour = "Green";
-        this.processor = processor;
+        System.out.println("Creating proxy");
     }
 
-    public void boot()
+    public void print()
     {
-        System.out.println("This pc has viruses");
-        processor.process();
-    }
-}
-
-
-
-interface Processor
-{
-    public void process();
-}
-
-class i7 implements Processor
-{
-    public void process()
-    {
-        System.out.println("process process...");
+        if(personInfo == null)
+        {
+            personInfo = new PersonInfo();
+        }
+        personInfo.print();
     }
 }

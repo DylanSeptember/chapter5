@@ -10,13 +10,8 @@ public class AppConfig {
 
 
     @Bean(name = "int1")
-    public Computer getChess() {
-        return new PC(new i7());
-    }
-
-    @Bean(name = "int2")
-    public Processor getChess2() {
-        return new i7();
+    public DBInfo getChess() {
+        return new PersonInfo();
     }
 
 }
