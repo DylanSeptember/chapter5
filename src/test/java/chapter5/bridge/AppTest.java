@@ -1,4 +1,4 @@
-package chapter5.adapter;
+package chapter5.bridge;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,29 +13,44 @@ public class AppTest
 
 {
 
-    DistanceInfo distanceInfo;
+    Computer computer;
 
     @Before
     public void testBean() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        distanceInfo = (DistanceInfo) ctx.getBean("int");
+        computer = (Computer) ctx.getBean("int1");
 
     }
 
+    Processor processor;
 
+    @Before
+    public void testBean2() throws Exception {
 
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        processor = (Processor) ctx.getBean("int2");
 
+    }
 
     @Test
-    public void testDistanceMiles()
+    public void testProcesser()
     {
-        DistanceMiles distanceMiles = new DistanceMiles();
+        i7 i = new i7();
 
-        Assert.assertNotNull(distanceMiles);
+        Assert.assertNotNull(i);
     }
 
+
     @Test
+    public void testPC()
+    {
+        PC pc = new PC(new i7());
+
+        Assert.assertNotNull(pc);
+    }
+
+   /* @Test
     public void testDistanceAdapter()
     {
         DistanceAdapter distanceAdapter = new DistanceAdapter();
@@ -77,6 +92,6 @@ public class AppTest
 
         distanceAdapter.setDistanceMiles(144);;
         Assert.assertEquals(144, distanceAdapter.getDistanceMiles(), 0);
-    }
+    }*/
 
 }
