@@ -1,4 +1,4 @@
-package chapter5.chainOfResponsibility;
+package chapter5.visitor;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,14 +13,15 @@ public class AppTest
 
 {
 
-    Strategy strategy;
+    HumanOrgan humanOrgan;
+    OrganVisitor organVisitor;
 
 
     @Before
     public void testBean() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        strategy = (Strategy) ctx.getBean("b1");
+        organVisitor = (OrganVisitor) ctx.getBean("b1");
 
     }
 
@@ -28,29 +29,70 @@ public class AppTest
     public void testBean2() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        strategy = (Strategy) ctx.getBean("b2");
+        humanOrgan = (HumanOrgan) ctx.getBean("b2");
+
+    }
+
+    @Before
+    public void testBean3() throws Exception {
+
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        humanOrgan = (HumanOrgan) ctx.getBean("b3");
+
+    }
+
+    @Before
+    public void testBean4() throws Exception {
+
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        humanOrgan = (HumanOrgan) ctx.getBean("b4");
+
+    }
+
+    @Before
+    public void testBean5() throws Exception {
+
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        humanOrgan = (HumanOrgan) ctx.getBean("b5");
 
     }
 
 
-
     @Test
-    public void testHoodieClass()
+    public void testHeartClass()
     {
-        PurchaseHoodieStrategy purchaseHoodieStrategy = new PurchaseHoodieStrategy();
+        Heart heart = new Heart();
 
-        Assert.assertNotNull(purchaseHoodieStrategy);
+        Assert.assertNotNull(heart);
     }
 
     @Test
-    public void testShoeClass()
+    public void testLiverClass()
     {
-        PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
+        Liver liver = new Liver();
 
-        Assert.assertNotNull(purchaseShoeStrategy);
+        Assert.assertNotNull(liver);
     }
 
     @Test
+    public void testLungClass()
+    {
+        Lungs lungs = new Lungs();
+
+        Assert.assertNotNull(lungs);
+    }
+
+    @Test
+    public void testHumanClass()
+    {
+        Human human = new Human();
+
+        Assert.assertNotNull(human);
+    }
+
+
+
+   /* @Test
     public void testContextShoe()
     {
         PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
@@ -106,5 +148,5 @@ public class AppTest
         Assert.assertEquals(1500, context.getBalance());
     }
 
-
+*/
 }
