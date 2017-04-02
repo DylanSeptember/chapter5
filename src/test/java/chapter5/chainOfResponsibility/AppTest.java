@@ -13,14 +13,14 @@ public class AppTest
 
 {
 
-    WorkerHandler workerHandler;
+    Strategy strategy;
 
 
     @Before
     public void testBean() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        workerHandler = (WorkerHandler) ctx.getBean("b1");
+        strategy = (Strategy) ctx.getBean("b1");
 
     }
 
@@ -28,59 +28,83 @@ public class AppTest
     public void testBean2() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        workerHandler = (WorkerHandler) ctx.getBean("b2");
+        strategy = (Strategy) ctx.getBean("b2");
 
     }
 
-    @Before
-    public void testBean3() throws Exception {
-
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        workerHandler = (WorkerHandler) ctx.getBean("b3");
-
-    }
-
-    @Test
-    public void testWorker1()
-    {
-        Worker1Handler worker1Handler = new Worker1Handler();
-
-        Assert.assertNotNull(worker1Handler);
-    }
-
-    @Test
-    public void testWorker2()
-    {
-        Worker2Handler worker2Handler = new Worker2Handler();
-
-        Assert.assertNotNull(worker2Handler);
-    }
-
-    @Test
-    public void testWorker3()
-    {
-        Worker3Handler worker3Handler = new Worker3Handler();
-
-        Assert.assertNotNull(worker3Handler);
-    }
-
-   /* @Test
-    public void testPersonInfo()
-    {
-        PersonInfo personInfo = new PersonInfo();
-
-        Assert.assertNotNull(personInfo);
-    }
 
 
     @Test
-    public void testProxy()
+    public void testHoodieClass()
     {
-        Proxy proxy = new Proxy();
+        PurchaseHoodieStrategy purchaseHoodieStrategy = new PurchaseHoodieStrategy();
 
-        Assert.assertNotNull(proxy);
+        Assert.assertNotNull(purchaseHoodieStrategy);
     }
 
-*/
+    @Test
+    public void testShoeClass()
+    {
+        PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
+
+        Assert.assertNotNull(purchaseShoeStrategy);
+    }
+
+    @Test
+    public void testContextShoe()
+    {
+        PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
+        Context context = new Context(500, purchaseShoeStrategy);
+
+        Assert.assertNotNull(context);
+    }
+
+    @Test
+    public void testContextHoodie()
+    {
+        PurchaseHoodieStrategy purchaseHoodieStrategy = new PurchaseHoodieStrategy();
+        Context context = new Context(500, purchaseHoodieStrategy);
+
+        Assert.assertNotNull(context);
+    }
+
+    @Test
+    public void testCheckHoodie()
+    {
+        PurchaseHoodieStrategy purchaseHoodieStrategy = new PurchaseHoodieStrategy();
+        Context context = new Context(200, purchaseHoodieStrategy);
+
+        Assert.assertFalse(context.getResult());
+    }
+
+    @Test
+    public void testCheckShoe()
+    {
+        PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
+        Context context = new Context(1500, purchaseShoeStrategy);
+
+        Assert.assertFalse((!context.getResult()));
+    }
+
+    @Test
+    public void testSetStrategy()
+    {
+        PurchaseHoodieStrategy purchaseHoodieStrategy = new PurchaseHoodieStrategy();
+        PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
+        Context context = new Context(1500, purchaseShoeStrategy);
+        context.setStrategy(purchaseHoodieStrategy);
+
+        Assert.assertSame(purchaseHoodieStrategy, context.getStrategy());
+    }
+
+    @Test
+    public void testGetBalance()
+    {
+        PurchaseShoeStrategy purchaseShoeStrategy = new PurchaseShoeStrategy();
+        Context context = new Context(1500, purchaseShoeStrategy);
+
+        Assert.assertEquals(1500, context.getBalance());
+    }
+
 
 }

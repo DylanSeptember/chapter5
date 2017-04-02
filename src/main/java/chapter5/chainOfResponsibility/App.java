@@ -8,100 +8,91 @@ public class App
 {
     public static void main( String[] args )
     {
-        WorkerHandler chain = setUpChain();
+       int balance = 800;
 
-        chain.handleRequest(WorkerEnum.Worker1);
+       Strategy hoodieStrategy = new PurchaseHoodieStrategy();
+       Context context = new Context(balance,hoodieStrategy);
+
+       System.out.println("Balance: " + context.getBalance());
         System.out.println();
-        chain.handleRequest(WorkerEnum.Worker2);
+        System.out.println("Do i have enough to buy a hoodie? " + (context.getResult() == true ? "Yes": "No"));
         System.out.println();
-        chain.handleRequest(WorkerEnum.Worker3);
+
+        Strategy shoeStrategy = new PurchaseShoeStrategy();
+       context.setStrategy(shoeStrategy);
+        System.out.println("Do i have enough to buy a shoe? " + (context.getResult() == true ? "Yes": "No"));
+
+
     }
 
-    public static WorkerHandler setUpChain()
-    {
-        WorkerHandler worker1Handler = new Worker1Handler();
-        WorkerHandler worker2Handler = new Worker2Handler();
-        WorkerHandler worker3Handler = new Worker3Handler();
 
-        worker1Handler.setSuccessor(worker2Handler);
-        worker2Handler.setSuccessor(worker3Handler);
-
-        return worker1Handler;
-    }
 
 }
 
-
-abstract class WorkerHandler
+interface Strategy
 {
-    WorkerHandler successor;
-
-    public void setSuccessor(WorkerHandler successor)
-    {
-        this.successor = successor;
-    }
-
-    public abstract void handleRequest(WorkerEnum request);
+    public boolean checkBalance(int balance);
 }
 
-enum WorkerEnum
+class PurchaseHoodieStrategy implements Strategy
 {
-    Worker1,Worker2,Worker3;
-}
-
-class Worker1Handler extends WorkerHandler
-{
-    public void handleRequest(WorkerEnum request)
+    public boolean checkBalance(int balance)
     {
-        if(request == WorkerEnum.Worker1)
+        if(balance >= 300)
         {
-            System.out.println("Worker 1 works it " + request);
+            return true;
         }
         else
         {
-            System.out.println("Worker 1: Not my job");
-            if(successor != null)
-            {
-                successor.handleRequest(request);
-            }
+            return false;
         }
     }
 }
 
-class Worker2Handler extends WorkerHandler
+class PurchaseShoeStrategy implements Strategy
 {
-    public void handleRequest(WorkerEnum request)
+    public boolean checkBalance(int balance)
     {
-        if(request == WorkerEnum.Worker2)
+        if(balance >= 1200)
         {
-            System.out.println("Worker 2 works it " + request);
+            return true;
         }
         else
         {
-            System.out.println("Worker 2: Not my job");
-            if(successor != null)
-            {
-                successor.handleRequest(request);
-            }
+            return false;
         }
+
     }
 }
 
-class Worker3Handler extends WorkerHandler
+class Context
 {
-    public void handleRequest(WorkerEnum request)
+    private int balance;
+    private Strategy strategy;
+
+    public Context(int balance, Strategy strategy)
     {
-        if(request == WorkerEnum.Worker3)
-        {
-            System.out.println("Worker 3 works it " + request);
-        }
-        else
-        {
-            System.out.println("Worker 3: Not my job");
-            if(successor != null)
-            {
-                successor.handleRequest(request);
-            }
-        }
+        this.balance = balance;
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(Strategy strategy)
+    {
+        this.strategy = strategy;
+    }
+
+    public Strategy getStrategy()
+    {
+        return strategy;
+    }
+
+    public int getBalance()
+    {
+        return balance;
+    }
+
+    public boolean getResult()
+    {
+        return strategy.checkBalance(balance);
     }
 }
